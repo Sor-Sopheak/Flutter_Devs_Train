@@ -2,20 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_color/flutter_color.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  bool passwordVisible = false;
+class SignupScreen extends StatelessWidget {
+  const SignupScreen ({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true, //app bar appear over background imgage 
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         iconTheme: const IconThemeData(
           color: Colors.white //color arrow back
@@ -59,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
         fit: StackFit.expand,
         children: <Widget>[
           Image.asset(
-            "assets/images/login.jpg",
+            "assets/images/register.jpg",
             fit: BoxFit.cover,
           ),
           Container(
@@ -75,14 +68,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   topRight: Radius.circular(20.0),
                 ),
               ),
-              height: 500,
+              height: 550,
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   const Text(
-                    "Login",
+                    "Register",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -111,7 +104,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: TextField(
-                      obscureText: !passwordVisible,
                       style: const TextStyle(
                         color: Color.fromARGB(255, 255, 255, 255),
                       ),
@@ -128,17 +120,32 @@ class _LoginScreenState extends State<LoginScreen> {
                         border: InputBorder.none,
                         filled: true,
                         fillColor: HexColor("#192e31"),
-                        suffixIcon: IconButton(
-                            onPressed: () {
-                              setState(
-                                () {
-                                  passwordVisible = !passwordVisible;
-                                },
-                              );
-                            },
-                            icon: Icon(passwordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off)),
+                        suffixIconColor:
+                            const Color.fromARGB(255, 189, 188, 188),
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: TextField(
+                      obscureText: true,
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                      ),
+                      decoration: InputDecoration(
+                        hintText: "Enter confirm password",
+                        hintStyle: const TextStyle(
+                          color: Color.fromARGB(255, 189, 188, 188),
+                        ),
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: 16),
+                        prefixIcon: const Icon(Icons.key),
+                        prefixIconColor:
+                            const Color.fromARGB(255, 189, 188, 188),
+                        border: InputBorder.none,
+                        filled: true,
+                        fillColor: HexColor("#192e31"),
                         suffixIconColor:
                             const Color.fromARGB(255, 189, 188, 188),
                       ),
@@ -152,14 +159,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: SizedBox(
                             height: 60,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/signupComplete');
+                              },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor:
                                       const Color.fromARGB(255, 201, 149, 70),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(16))),
                               child: const Text(
-                                "Login",
+                                "Register",
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 16),
                               ),
@@ -184,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const Center(
                     child: Text(
-                      "Or login with",
+                      "Or register with",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -240,7 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        "Don't have an account?",
+                        "Already have an account?",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -248,10 +257,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/signup');
+                            Navigator.pushNamed(context, '/login');
                           },
                           child: const Text(
-                            "Register",
+                            "Login",
                             style: TextStyle(
                               color: Color.fromARGB(255, 201, 149, 70),
                               fontSize: 16,
