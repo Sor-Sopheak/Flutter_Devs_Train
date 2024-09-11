@@ -187,7 +187,8 @@ class SignupScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(16))),
                               child: const Icon(Icons.clear_rounded,
                                   color: Colors.grey),
-                            ))
+                            )
+                        )
                       ],
                     ),
                   ),

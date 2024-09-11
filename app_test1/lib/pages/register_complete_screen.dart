@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_color/flutter_color.dart';
@@ -24,7 +26,8 @@ class RegisterCompleteScreen extends StatelessWidget {
           Align(
             alignment: Alignment.bottomLeft,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
                   width: width * 0.7,
@@ -44,60 +47,75 @@ class RegisterCompleteScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: HexColor('#1B2F30').withOpacity(0.8),
-                  ),
-                  height: 500,
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-  children: [
-    Container(
-      width: 140, // Diameter of the outermost circle
-      height: 140,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: LinearGradient(
-          colors: [
-            Colors.blue,  // Start color of the gradient
-            Colors.purple // End color of the gradient
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
-      child: Center(
-        child: CircleAvatar(
-          radius: 55, // Middle circle
-          backgroundColor: Colors.green, // Second background color
-          child: CircleAvatar(
-            radius: 50, // Innermost circle for the image
-            backgroundImage: AssetImage('assets/images/profile.png'),
-          ),
-        ),
-      ),
-    ),
-  ],
-)
 
-                //   child: const Column(children: [
-                //     CircleAvatar(
-                //       radius: 70, // Outermost circle (largest)
-                //       // backgroundColor: GradientRotation(radians), // First background color
-                //       child: CircleAvatar(
-                //         radius: 55, // Middle circle
-                //         backgroundColor:
-                //             Colors.green, // Second background color
-                //         child: CircleAvatar(
-                //           radius: 50, // Innermost circle (where the image goes)
-                //           backgroundImage:
-                //               AssetImage('assets/images/profile.png'),
-                //         ),
-                //       ),
-                //     )
-                //   ]
-                // ),
-                )
+                const SizedBox(height: 15),
+
+                Container(
+                    decoration: BoxDecoration(
+                      color: HexColor('#1B2F30').withOpacity(0.8),
+                    ),
+                    height: 450,
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 30),
+
+                        const Center(
+                          child: CircleAvatar(
+                            radius: 62,
+                            backgroundColor: Color.fromARGB(
+                                255, 233, 192, 105),
+                            child: CircleAvatar(
+                              radius: 60, 
+                              backgroundImage:
+                                  AssetImage('assets/images/profile.png'),
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+                        const Text(
+                          "Evelyn",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold
+                          ),
+                        ),
+
+                        const SizedBox(height: 90),
+
+                        Row(             
+                                
+                          children: [
+                            Expanded(
+                              child: SizedBox(
+                                height: 60,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/home');
+                                  }, 
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16)
+                                    ),
+                                    backgroundColor: const Color.fromARGB(255, 201, 149, 70),
+                                    foregroundColor: Colors.black,
+                                  ),
+                                  child: const Text(
+                                    "Complete",
+                                    style: TextStyle(
+                                      fontSize: 16
+                                    ),
+                                  )
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    )
+                  )
               ],
             ),
           )

@@ -1,4 +1,5 @@
 import 'package:app_test1/pages/board_screen.dart';
+import 'package:app_test1/pages/home_screen.dart';
 import 'package:app_test1/pages/login_screen.dart';
 import 'package:app_test1/pages/register_complete_screen.dart';
 import 'package:app_test1/pages/signup_screen.dart';
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => const BoardScreen(),
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignupScreen(),
-        '/signupComplete': (context) => const RegisterCompleteScreen()
+        '/signupComplete': (context) => const RegisterCompleteScreen(),
+        '/home': (context) => const HomeScreen()
       },
     );
   }
