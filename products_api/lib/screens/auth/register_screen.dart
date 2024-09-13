@@ -37,22 +37,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
           prefixIcon: Icon(Icons.key),
           isPassword: false,
         ),
-
         const SizedBox(height: 25),
-
         Row(
           children: [
             MainButton(
-              onPressed: () {},
-              btnText: "Register",
-              btnColor: ColorConstants.pinkColor,
-              btnTextColor: Colors.white
-            ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/pageController');
+                },
+                btnText: "Register",
+                btnColor: ColorConstants.pinkColor,
+                btnTextColor: Colors.white),
           ],
         ),
-
         const SizedBox(height: 20),
-
         const Row(
           children: [
             Expanded(child: Divider()),
@@ -60,66 +57,54 @@ class _RegisterScreenState extends State<RegisterScreen> {
             Expanded(child: Divider())
           ],
         ),
-
         const SizedBox(height: 20),
-    
         Row(
           children: [
             Expanded(
-              child: ElevatedButton.icon(
-                onPressed: () {},
-                label: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Text(
-                    "Google",
-                    style: TextStyle(color: ColorConstants.blackColor),
-                  ),
+                child: ElevatedButton.icon(
+              onPressed: () {},
+              label: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Text(
+                  "Google",
+                  style: TextStyle(color: ColorConstants.blackColor),
                 ),
-                icon: const FaIcon(
-                  FontAwesomeIcons.google,
-                  color: Color.fromARGB(255, 4, 102, 53),
-                ),
-                style: ElevatedButton.styleFrom(
+              ),
+              icon: const FaIcon(
+                FontAwesomeIcons.google,
+                color: Color.fromARGB(255, 4, 102, 53),
+              ),
+              style: ElevatedButton.styleFrom(
                   shadowColor: Colors.transparent,
                   backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
-                      side: BorderSide(color: ColorConstants.lightGreyColor)
-                  )
-                ),
-              )
-            ),
-
+                      side: BorderSide(color: ColorConstants.lightGreyColor))),
+            )),
             const SizedBox(width: 20),
-
             Expanded(
-              child: ElevatedButton.icon(
-                onPressed: () {},
-                label: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Text(
-                    "Facebook",
-                    style: TextStyle(color: ColorConstants.blackColor),
-                  ),
+                child: ElevatedButton.icon(
+              onPressed: () {},
+              label: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Text(
+                  "Facebook",
+                  style: TextStyle(color: ColorConstants.blackColor),
                 ),
-                icon: const FaIcon(
-                  FontAwesomeIcons.facebook,
-                  color: Colors.blueAccent,
-                ),
-                style: ElevatedButton.styleFrom(
+              ),
+              icon: const FaIcon(
+                FontAwesomeIcons.facebook,
+                color: Colors.blueAccent,
+              ),
+              style: ElevatedButton.styleFrom(
                   shadowColor: Colors.transparent,
                   backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(color: ColorConstants.lightGreyColor)
-                  )
-                ),
-              )
-            ),
-      ],
-    ),
-    
-    
+                      borderRadius: BorderRadius.circular(50),
+                      side: BorderSide(color: ColorConstants.lightGreyColor))),
+            )),
+          ],
+        ),
       ],
     );
   }

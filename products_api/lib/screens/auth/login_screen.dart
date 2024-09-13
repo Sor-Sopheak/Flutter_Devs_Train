@@ -68,7 +68,8 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             MainButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/home');
+                  Navigator.pushNamed(context, '/pageController');
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => PageController()));
                 },
                 btnText: "Login",
                 btnColor: ColorConstants.pinkColor,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:products_api/constants/color_constants.dart';
 import 'package:products_api/screens/auth/guest_screen.dart';
+import 'package:products_api/screens/controller_page.dart';
+import 'package:products_api/screens/detail_screen.dart';
 import 'package:products_api/screens/home_screen.dart';
 import 'package:products_api/screens/auth/login_screen.dart';
 import 'package:products_api/screens/auth/register_screen.dart';
@@ -29,7 +31,9 @@ class MyApp extends StatelessWidget {
         '/guest': (context) => const GuestScreen(),
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
-        '/home': (context) => const HomeScreen()
+        '/home': (context) => const HomeScreen(),
+        '/detail': (context) => const DetailScreen(),
+        '/pageController': (context) => const ControllerPage()
       },
     );
   }
