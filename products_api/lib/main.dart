@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:products_api/constants/color_constants.dart';
 import 'package:products_api/screens/auth/guest_screen.dart';
+import 'package:products_api/screens/cart_screen.dart';
 import 'package:products_api/screens/controller_page.dart';
 import 'package:products_api/screens/detail_screen.dart';
 import 'package:products_api/screens/home_screen.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const RegisterScreen(),
         '/home': (context) => const HomeScreen(),
         '/detail': (context) => const DetailScreen(),
+        'cart': (context) => const CartScreen(),
         '/pageController': (context) => const ControllerPage()
       },
     );

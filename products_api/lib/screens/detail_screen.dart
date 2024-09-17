@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:products_api/constants/color_constants.dart';
-import 'package:products_api/widgets/main_button.dart';
 import 'package:products_api/widgets/product_detail.dart';
 
 class DetailScreen extends StatefulWidget {

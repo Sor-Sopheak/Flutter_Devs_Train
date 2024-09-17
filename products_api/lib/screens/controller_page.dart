@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:products_api/screens/auth/guest_screen.dart';
 import 'package:products_api/screens/auth/profile_screen.dart';
+import 'package:products_api/screens/cart_screen.dart';
 import 'package:products_api/screens/home_screen.dart';
 
 import '../constants/color_constants.dart';
@@ -23,12 +22,17 @@ class _ControllerPageState extends State<ControllerPage> {
       child: Scaffold(
           body: PageView(
             controller: pageController,
+            onPageChanged: (index) {
+              setState(() {
+              _selectedIndex = index;
+            });
+            },
             children: const <Widget>[
               Center(
                 child: HomeScreen(),
               ),
               Center(
-                child: GuestScreen(),
+                child:CartScreen(),
               ),
               Center(
                 child: HomeScreen(),
@@ -38,8 +42,9 @@ class _ControllerPageState extends State<ControllerPage> {
               )
             ],
           ),
-      
-          bottomNavigationBar: BottomNavigationBar(
+
+        //conditional to hide and show bar
+          bottomNavigationBar: _selectedIndex == 1 ? null : BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             backgroundColor: Colors.white,
             currentIndex: _selectedIndex,
