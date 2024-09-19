@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:products_api/constants/color_constants.dart';
+import 'package:products_api/models/product.dart';
+import 'package:products_api/screens/controller_page.dart';
 import 'package:products_api/widgets/product_detail.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen({super.key});
+  final Product product;
+  
+  const DetailScreen({super.key, required this.product});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -28,7 +32,12 @@ class _DetailScreenState extends State<DetailScreen> {
                 padding: const EdgeInsets.only(left: 6),
                 child: IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ControllerPage(page: 0)
+                        )
+                      );
                     },
                     icon: Icon(
                       Icons.arrow_back_ios,
@@ -64,22 +73,21 @@ class _DetailScreenState extends State<DetailScreen> {
       resizeToAvoidBottomInset: true,
 
       // Scrollable content
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               ProductDetail(
-                img: 'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg',
-                name: "To Molly From James",
-                type: "Oversize sweater",
-                rate: 4,
-                count: 2,
-                price: 45,
-                desc:
-                    "The color could be slightly different between on the screen and in practice. Please note that body builds vary by person, therefore, detailed size information should be reviewed below on the product description.",
+                img: widget.product.image,
+                name: widget.product.title,
+                type: widget.product.category,
+                rate: widget.product.rating.rate,
+                count: widget.product.rating.count,
+                price:widget.product.price,
+                desc: widget.product.description
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -87,7 +95,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
       // Fixed button at the bottom
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 16,  right: 16, bottom: 32),
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 32),
         child: ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(
@@ -107,8 +115,6 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ),
       ),
-
-      
     );
   }
 }

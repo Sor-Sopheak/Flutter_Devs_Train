@@ -7,9 +7,6 @@ class Cart extends StatefulWidget {
   final double price;
   final int quantity;
   final String category;
-  // final Function onDelete;
-  // final Function decrease;
-  // final Function increase;
 
   const Cart(
       {super.key,
@@ -60,7 +57,6 @@ class _CartState extends State<Cart> {
                     children: [
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
                             child: Text(

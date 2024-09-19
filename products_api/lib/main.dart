@@ -3,7 +3,6 @@ import 'package:products_api/constants/color_constants.dart';
 import 'package:products_api/screens/auth/guest_screen.dart';
 import 'package:products_api/screens/cart_screen.dart';
 import 'package:products_api/screens/controller_page.dart';
-import 'package:products_api/screens/detail_screen.dart';
 import 'package:products_api/screens/home_screen.dart';
 import 'package:products_api/screens/auth/login_screen.dart';
 import 'package:products_api/screens/auth/register_screen.dart';
@@ -16,7 +15,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,9 +31,8 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
         '/home': (context) => const HomeScreen(),
-        '/detail': (context) => const DetailScreen(),
         'cart': (context) => const CartScreen(),
-        '/pageController': (context) => const ControllerPage()
+        '/pageController': (context) => const ControllerPage(page: 0,)
       },
     );
   }

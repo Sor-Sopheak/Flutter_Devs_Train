@@ -5,8 +5,8 @@ class Category {
     required this.name,
   });
 
-  factory Category.fromString(String name) {
-    return Category(name: name);
+  factory Category.fromJson(dynamic json) {
+    return Category(name: json);
   }
 
   @override
@@ -14,11 +14,9 @@ class Category {
     return name;
   }
 
-  static List<Category> categoriesFromList(List<String> names) {
-    return names.map((name) => Category.fromString(name)).toList();
-  }
-
-  static List<String> categoriesToList(List<Category> categories) {
-    return categories.map((category) => category.name).toList();
+  static List<Category> categoriesFromSnapshot(List snapshot) {
+    return snapshot.map((data) {
+      return Category.fromJson(data);
+    }).toList();
   }
 }

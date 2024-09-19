@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:products_api/constants/color_constants.dart';
-import 'package:products_api/screens/home_screen.dart';
 import 'package:products_api/utils/capitalized_extension.dart';
 
 class ProductOrder extends StatefulWidget {
@@ -32,7 +31,7 @@ class _ProductOrderState extends State<ProductOrder> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(8),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Image.network(

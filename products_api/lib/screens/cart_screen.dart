@@ -1,8 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:products_api/constants/color_constants.dart';
+import 'package:products_api/screens/controller_page.dart';
 import 'package:products_api/widgets/cart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -12,16 +12,86 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  int _counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _loadCounter() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _counter = prefs.getInt('counter') ?? 0;
+    });
+  }
+
+  void _incrementCounter() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _counter = (prefs.getInt('counter') ?? 0) + 1;
+      prefs.setInt('counter', _counter);
+    });
+  }
+
+  void _decreaseCounter() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      int count = _counter = (prefs.getInt('counter') ?? 0);
+      if (count > 0) {
+        _counter = count - 1;
+      }
+      prefs.setInt('counter', _counter);
+    });
+  }
+
+  void _resetCounter() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _counter = 0;
+      prefs.remove('counter');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text(
-          "My cart",
-          style: TextStyle(
-              fontFamily: 'Poppins', fontWeight: FontWeight.bold, fontSize: 32),
+        leading: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
+            height: 24,
+            width: 24,
+            decoration: BoxDecoration(
+              color: ColorConstants.lightGreyColor,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Padding(
+                padding: const EdgeInsets.only(left: 6),
+                child: IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ControllerPage(page: 0)));
+                    },
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: ColorConstants.darkGreyColor,
+                      size: 20,
+                    ))),
+          ),
+        ),
+        title: const Center(
+          child: Text(
+            "My cart",
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.bold,
+                fontSize: 32),
+          ),
         ),
       ),
       body: Padding(
@@ -49,16 +119,14 @@ class _CartScreenState extends State<CartScreen> {
         child: SizedBox(
           height: 200,
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
                 "Promocode",
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  fontFamily: 'Poppins'
-                ),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    fontFamily: 'Poppins'),
               ),
               const SizedBox(height: 8),
               TextField(
@@ -67,9 +135,7 @@ class _CartScreenState extends State<CartScreen> {
                   fillColor: ColorConstants.lightGreyColor,
                   hintText: "Enter promocode",
                   hintStyle: const TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600
-                  ),
+                    fontFamily: 'Poppins', fontWeight: FontWeight.w600),
                   border: OutlineInputBorder(
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.circular(16)
@@ -100,7 +166,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
 
               const SizedBox(height: 8),
-              
+
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
@@ -115,10 +181,7 @@ class _CartScreenState extends State<CartScreen> {
                 child: const Text(
                   "Check out",
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontFamily: 'Poppins'
-                  ),
+                      color: Colors.white, fontSize: 22, fontFamily: 'Poppins'),
                 ),
               ),
             ],

@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:products_api/constants/color_constants.dart';
 import 'package:products_api/utils/capitalized_extension.dart';
-import 'package:provider/provider.dart';
 
-class Product extends StatefulWidget {
+class ProductWidget extends StatefulWidget {
   final String img;
   final String title;
   final String type;
   final double price;
   final bool isFavourite;
+  final Function favorite;
 
-  const Product(
-      {super.key,
-      required this.title,
-      required this.type,
-      required this.price,
-      this.isFavourite = false,
-      required this.img});
+  const ProductWidget({
+    super.key,
+    required this.title,
+    required this.type,
+    required this.price,
+    this.isFavourite = false,
+    required this.img,
+    required this.favorite,
+  });
 
   @override
-  State<Product> createState() => _ProductState();
+  State<ProductWidget> createState() => _ProductWidgetState();
 }
 
-class _ProductState extends State<Product> {
+class _ProductWidgetState extends State<ProductWidget> {
   late bool isFavourite;
 
   @override
@@ -54,24 +56,23 @@ class _ProductState extends State<Product> {
               ),
             ),
             Positioned(
-              right: 2,
-              child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    isFavourite = !isFavourite;
-                  });
-                },
-                icon: Icon(
-                  isFavourite
-                      ? Icons.favorite_border_rounded
-                      : Icons.favorite_rounded,
-                  color: isFavourite
-                      ? ColorConstants.darkGreyColor
-                      : Colors.red,
-                  size: 32,
-                )
-              )
-            ),
+                right: 2,
+                child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isFavourite = !isFavourite;
+                        widget.favorite();
+                      });
+                    },
+                    icon: Icon(
+                      isFavourite
+                          ? Icons.favorite_border_rounded
+                          : Icons.favorite_rounded,
+                      color: isFavourite
+                          ? ColorConstants.darkGreyColor
+                          : Colors.red,
+                      size: 32,
+                    ))),
           ],
         ),
         const SizedBox(height: 15),
@@ -79,13 +80,19 @@ class _ProductState extends State<Product> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              widget.title,
-              style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 22,
-                  color: ColorConstants.blackColor,
-                  fontWeight: FontWeight.w500),
+            SizedBox(
+              width: 230,
+              child: Text(
+                widget.title,
+                style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 22,
+                    color: ColorConstants.blackColor,
+                    fontWeight: FontWeight.w500),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                softWrap: true,
+              ),
             ),
             Text(
               widget.type.capitalize(),
