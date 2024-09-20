@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:products_api/constants/color_constants.dart';
 import 'package:products_api/models/product.dart';
-import 'package:products_api/screens/controller_page.dart';
+import 'package:products_api/screens/cart/cart_provider.dart';
 import 'package:products_api/widgets/product_detail.dart';
+import 'package:provider/provider.dart';
+
 
 class DetailScreen extends StatefulWidget {
   final Product product;
-  
+
   const DetailScreen({super.key, required this.product});
 
   @override
@@ -14,6 +17,15 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+  late CartProvider cartProvider;
+
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    cartProvider = Provider.of<CartProvider>(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,12 +44,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 padding: const EdgeInsets.only(left: 6),
                 child: IconButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ControllerPage(page: 0)
-                        )
-                      );
+                      Navigator.pop(context);
                     },
                     icon: Icon(
                       Icons.arrow_back_ios,
@@ -79,14 +86,13 @@ class _DetailScreenState extends State<DetailScreen> {
           child: Column(
             children: [
               ProductDetail(
-                img: widget.product.image,
-                name: widget.product.title,
-                type: widget.product.category,
-                rate: widget.product.rating.rate,
-                count: widget.product.rating.count,
-                price:widget.product.price,
-                desc: widget.product.description
-              ),
+                  img: widget.product.image,
+                  name: widget.product.title,
+                  type: widget.product.category,
+                  rate: widget.product.rating.rate,
+                  count: widget.product.rating.count,
+                  price: widget.product.price,
+                  desc: widget.product.description),
               const SizedBox(height: 20),
             ],
           ),
@@ -97,7 +103,11 @@ class _DetailScreenState extends State<DetailScreen> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16, bottom: 32),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            cartProvider.addToCart(
+              widget.product, 1, null
+            );
+          },
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:products_api/constants/color_constants.dart';
 
-class Cart extends StatefulWidget {
+class CartWidget extends StatefulWidget {
   final String img;
   final String name;
   final double price;
   final int quantity;
   final String category;
 
-  const Cart(
+  const CartWidget(
       {super.key,
       required this.name,
       required this.price,
@@ -17,10 +17,10 @@ class Cart extends StatefulWidget {
       required this.category});
 
   @override
-  State<Cart> createState() => _CartState();
+  State<CartWidget> createState() => _CartWidgetState();
 }
 
-class _CartState extends State<Cart> {
+class _CartWidgetState extends State<CartWidget> {
   @override
   Widget build(BuildContext context) {
     return Dismissible(

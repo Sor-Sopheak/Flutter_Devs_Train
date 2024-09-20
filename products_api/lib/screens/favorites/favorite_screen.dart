@@ -45,21 +45,23 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: Padding(
-                padding: const EdgeInsets.only(left: 6),
-                child: IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ControllerPage(page: 0)
-                        )
-                      );
-                    },
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      color: ColorConstants.darkGreyColor,
-                      size: 20,
-                    ))),
+              padding: const EdgeInsets.only(left: 6),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ControllerPage(page: 0)
+                    )
+                  );
+                },
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: ColorConstants.darkGreyColor,
+                  size: 20,
+                )
+              )
+            ),
           ),
         ),
         title: const Center(

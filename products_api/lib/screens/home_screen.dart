@@ -319,51 +319,52 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: SizedBox(
                         height: 45,
                         child: _isLoading
-                            ? const Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: _categories.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  final category = _categories[index];
-                                  return GestureDetector(
-                                    onTap: (() {
-                                      setState(() {
-                                        _selectedCategoryIndex = index;
-                                        getProductsByCategory(category.name);
-                                      });
-                                    }),
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8, horizontal: 16),
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 4),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.white),
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: _selectedCategoryIndex == index
-                                            ? Colors.white
-                                            : Colors.transparent,
-                                      ),
-                                      child: Text(
-                                        _categories[index].name.capitalize(),
-                                        style: TextStyle(
-                                            color:
-                                                _selectedCategoryIndex == index
-                                                    ? Colors.black
-                                                    : Colors.white,
-                                            fontWeight:
-                                                _selectedCategoryIndex == index
-                                                    ? FontWeight.w600
-                                                    : FontWeight.normal,
-                                            fontFamily: 'Poppins',
-                                            fontSize: 18),
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: _categories.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final category = _categories[index];
+                                return GestureDetector(
+                                  onTap: (() {
+                                    setState(() {
+                                      _selectedCategoryIndex = index;
+                                      getProductsByCategory(category.name);
+                                    });
+                                  }),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8, horizontal: 16),
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 4),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.white),
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: _selectedCategoryIndex == index
+                                          ? Colors.white
+                                          : Colors.transparent,
+                                    ),
+                                    child: Text(
+                                      _categories[index].name.capitalize(),
+                                      style: TextStyle(
+                                        color:
+                                            _selectedCategoryIndex == index
+                                                ? Colors.black
+                                                : Colors.white,
+                                        fontWeight:
+                                            _selectedCategoryIndex == index
+                                                ? FontWeight.w600
+                                                : FontWeight.normal,
+                                        fontFamily: 'Poppins',
+                                        fontSize: 18
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
+                                  ),
+                                );
+                              },
+                            ),
                       ),
                     ),
 
@@ -395,13 +396,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                     return GestureDetector(
                                       onTap: (() {
                                         Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    DetailScreen(
-                                                        product: _limitProducts[
-                                                            index])));
-                                      }),
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                              DetailScreen(
+                                                product: _limitProducts[
+                                                    index]
+                                                  )
+                                                )
+                                              );
+                                      }
+                                    ),
                                       child: Padding(
                                         padding:
                                             const EdgeInsets.only(left: 16),

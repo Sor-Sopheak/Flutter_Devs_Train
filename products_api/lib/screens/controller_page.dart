@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:products_api/screens/auth/profile_screen.dart';
-import 'package:products_api/screens/cart_screen.dart';
+import 'package:products_api/screens/cart/cart_screen.dart';
 import 'package:products_api/screens/favorites/favorite_screen.dart';
 import 'package:products_api/screens/home_screen.dart';
 
