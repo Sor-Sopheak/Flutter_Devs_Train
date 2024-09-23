@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:products_api/screens/controller_page.dart';
 import 'package:products_api/widgets/auth_textfield.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:products_api/constants/color_constants.dart';
@@ -42,7 +43,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             MainButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/pageController');
+                  Navigator.of(context).push(
+                                MaterialPageRoute(builder: (context) => const ControllerPage(page: 0)));
                 },
                 btnText: "Register",
                 btnColor: ColorConstants.pinkColor,

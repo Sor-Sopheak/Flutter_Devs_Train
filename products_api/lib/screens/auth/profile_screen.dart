@@ -408,29 +408,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             TextButton(
-                                onPressed: () =>
-                                    {removeToken(), print("log out click")},
-                                style: ButtonStyle(
-                                    overlayColor: MaterialStateProperty.all(
-                                        Colors.transparent)),
-                                child: const Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.power_settings_new_rounded,
-                                      color: Colors.red,
-                                    ),
-                                    SizedBox(width: 16),
-                                    Text(
-                                      'Log out',
-                                      style: TextStyle(
-                                          color: Colors.red,
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 16),
-                                    )
-                                  ],
-                                )),
+                              onPressed: () =>
+                                  {removeToken(), print("log out click")},
+                              style: ButtonStyle(
+                                  overlayColor: MaterialStateProperty.all(
+                                      Colors.transparent)),
+                              child: const Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.power_settings_new_rounded,
+                                    color: Colors.red,
+                                  ),
+                                  SizedBox(width: 16),
+                                  Text(
+                                    'Log out',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 16),
+                                  )
+                                ],
+                              )
+                            ),
                             const SizedBox(height: 35)
                           ],
                         ),

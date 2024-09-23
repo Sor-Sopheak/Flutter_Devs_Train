@@ -87,14 +87,15 @@ class _CartScreenState extends State<CartScreen> {
             var cartItem = cartProvider.cartItems[index];
             var discount = cartItem.promo?.discount ?? 0;
             return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: CartWidget(
-                  name: cartItem.product.title,
-                  price: cartItem.product.price,
-                  quantity: cartItem.quantity,
-                  img: cartItem.product.image,
-                  category: cartItem.product.category,
-                ));
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: CartWidget(
+                name: cartItem.product.title,
+                price: cartItem.product.price,
+                quantity: cartItem.quantity,
+                img: cartItem.product.image,
+                category: cartItem.product.category,
+              )
+            );
           },
         ),
       ),

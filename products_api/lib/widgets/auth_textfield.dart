@@ -54,22 +54,22 @@ class _AuthTextFieldState extends State<AuthTextField> {
         prefixIcon: widget.prefixIcon,
         prefixIconColor: ColorConstants.darkGreyColor,
         suffixIcon: widget.isPassword
-            ? IconButton(
-                icon: Icon(
-                  _obscureText ? Icons.visibility : Icons.visibility_off,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _obscureText = !_obscureText;
-                  });
-                },
-              )
-            : widget.suffixIcon != null
-                ? IconButton(
-                    icon: widget.suffixIcon!,
-                    onPressed: () => widget.suffixAction?.call(),
-                  )
-                : null,
+          ? IconButton(
+          icon: Icon(
+            _obscureText ? Icons.visibility : Icons.visibility_off,
+          ),
+          onPressed: () {
+            setState(() {
+              _obscureText = !_obscureText;
+            });
+          },
+        )
+        : widget.suffixIcon != null
+        ? IconButton(
+            icon: widget.suffixIcon!,
+            onPressed: () => widget.suffixAction?.call(),
+          )
+        : null,
       ),
       textInputAction: TextInputAction.done,
     );

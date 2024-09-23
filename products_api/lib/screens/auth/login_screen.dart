@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:products_api/models/login.dart';
+import 'package:products_api/screens/controller_page.dart';
 import 'package:products_api/services/auth.api.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:products_api/constants/color_constants.dart';
@@ -21,7 +22,6 @@ class _LoginScreenState extends State<LoginScreen> {
   late LoginRequest authRequest;
   final AuthAPI _authAPI = AuthAPI();
   bool _isLogin = false;
-
 
   void saveToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -130,7 +130,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   : MainButton(
                       onPressed: () {
                         if (validateAndSave()) {
-
                           setState(() {
                             _isLogin = true;
                           });
@@ -142,7 +141,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
                             if (loginResponse.token.isNotEmpty) {
                               saveToken(loginResponse.token);
-                              Navigator.pushReplacementNamed(context, '/home');
+                              Navigator.of(context).push(
+                                MaterialPageRoute(builder: (context) => const ControllerPage(page: 0)));
                             } else {
                               print("Login failed: ${loginResponse.error}");
                             }
