@@ -1,51 +1,37 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_cart/model/cart_model.dart';
+import 'package:flutter_cart/flutter_cart.dart';
 import 'package:products_api/main.dart';
-import 'package:products_api/models/cart.dart';
+import 'package:products_api/models/list_promo.dart';
 import 'package:products_api/models/product.dart';
 import 'package:products_api/models/promo.dart';
 
 class CartProvider extends ChangeNotifier {
-  final List<Cart> _cartItems = [];
-  List<Cart> get cartItems => _cartItems;
+  var flutterCart = FlutterCart();
 
-  final List<Promo> _promoCodes = [];
-  List<Promo> get promoCode => _promoCodes;
+  final ListPromo _promoCodes = ListPromo.fromJson(ListPromo.getJsonData());
 
   void addToCart(Product product, int quantity, Promo? promo) {
     double subtotal = product.price * quantity;
     double discount = promo != null ? (subtotal * promo.discount / 100) : 0.0;
     double total = subtotal - discount;
 
-    var existingCartItem = _cartItems.firstWhere(
-      (item) => item.product.id == product.id,
-      orElse: () => Cart(product: product, quantity: 0, subtotal: 0, total: 0),
+    flutterCart.addToCart(
+      cartModel: CartModel(
+          productId: product.id.toString(),
+          productName: product.title,
+          variants: [ProductVariant(price: product.price)],
+          productDetails: product.category,
+          productImages: [product.image]),
     );
-
-    if (existingCartItem.quantity > 0) {
-      existingCartItem.quantity += quantity;
-      existingCartItem.subtotal += subtotal;
-      existingCartItem.total += total;
-    } else {
-      _cartItems.add(Cart(product: product, subtotal: subtotal, total: total));
-    }
 
     notifyListeners();
   }
 
-  int getProductQuantity(int productId) {
-    int quantity = 0;
-    for (Cart item in _cartItems) {
-      if (item.product.id == productId) {
-        quantity += item.quantity;
-      }
-    }
-
-    return quantity;
-  }
-
   void updateQuantity(CartModel item, int newQuantity) {
     cart.updateQuantity(item.productId, item.variants, newQuantity);
+    notifyListeners();
   }
 
   void removeFromCart(CartModel item) {
@@ -55,18 +41,26 @@ class CartProvider extends ChangeNotifier {
 
   void clearCart() {
     cart.clearCart();
+    notifyListeners();
   }
 
-  void getDiscount(String code) {
-    for (Promo promo in _promoCodes) {
+  double getDiscount(String code) {
+    double discount = 0;
+    for (Promo promo in _promoCodes.listPromo) {
       if (promo.code == code) {
-        // getTotalAmount = getSubTotal - promo.discount;
+        discount = promo.discount;
+        break;
       }
     }
+    return discount;
   }
 
   int get getCartCount => cart.cartLength;
   List<CartModel> get getCartItems => cart.cartItemsList;
-  double get getTotalAmount => cart.total;
+  double getTotalAmount(double discount) {
+    double afterDiscount = cart.subtotal - (cart.subtotal * discount / 100);
+    return afterDiscount;
+  }
+
   double get getSubTotal => cart.subtotal;
 }

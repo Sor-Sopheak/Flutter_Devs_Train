@@ -6,7 +6,6 @@ import 'package:products_api/screens/cart/cart_provider.dart';
 import 'package:products_api/widgets/product_detail.dart';
 import 'package:provider/provider.dart';
 
-
 class DetailScreen extends StatefulWidget {
   final Product product;
 
@@ -18,7 +17,6 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   late CartProvider cartProvider;
-
 
   @override
   void didChangeDependencies() {
@@ -104,9 +102,10 @@ class _DetailScreenState extends State<DetailScreen> {
         padding: const EdgeInsets.only(left: 16, right: 16, bottom: 32),
         child: ElevatedButton(
           onPressed: () {
-            cartProvider.addToCart(
-              widget.product, 1, null
-            );
+            cartProvider.addToCart(widget.product, 1, null);
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Produt added to cart!'))
+              );
           },
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(

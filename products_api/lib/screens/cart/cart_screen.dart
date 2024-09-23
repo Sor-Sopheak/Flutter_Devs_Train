@@ -1,14 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:products_api/constants/color_constants.dart';
-import 'package:products_api/models/product.dart';
-import 'package:products_api/models/promo.dart';
 import 'package:products_api/screens/cart/cart_provider.dart';
 import 'package:products_api/screens/controller_page.dart';
 import 'package:products_api/widgets/cart.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -18,12 +13,10 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  // int _counter = 0;
+  double discount = 0;
 
-  int _counter = 0;
-
-  void applyPromoCode() {
-    
-  }
+  void applyPromoCode() {}
 
   @override
   void initState() {
@@ -33,11 +26,11 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
-    //get cart item
-    final cartItems = cartProvider.cartItems;
-    double totalAmount = cartItems.fold(0, (total, item) => total + item.total);
-    double subtotalAmount =
-        cartItems.fold(0, (subtotal, item) => subtotal + item.subtotal);
+    final cartItems = cartProvider.getCartItems;
+    double total = cartProvider.getTotalAmount(discount);
+    double subtotal = cartProvider.getSubTotal;
+
+    TextEditingController promoCodeController = TextEditingController();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -59,7 +52,8 @@ class _CartScreenState extends State<CartScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ControllerPage(page: 0)));
+                              builder: (context) =>
+                                  const ControllerPage(page: 0)));
                     },
                     icon: Icon(
                       Icons.arrow_back_ios,
@@ -82,20 +76,22 @@ class _CartScreenState extends State<CartScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: ListView.builder(
           scrollDirection: Axis.vertical,
-          itemCount: cartProvider.cartItems.length,
+          itemCount: cartItems.length,
           itemBuilder: (BuildContext context, int index) {
-            var cartItem = cartProvider.cartItems[index];
-            var discount = cartItem.promo?.discount ?? 0;
+            var cartItem = cartItems[index];
+            var variant = cartItem.variants.first;
+            // var discount = cartItem.promo?.discount ?? 0;
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              child: CartWidget(
-                name: cartItem.product.title,
-                price: cartItem.product.price,
-                quantity: cartItem.quantity,
-                img: cartItem.product.image,
-                category: cartItem.product.category,
-              )
-            );
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: CartWidget(
+                  name: cartItem.productName,
+                  price: variant.price,
+                  quantity: cartItem.quantity,
+                  category: cartItem.productDetails,
+                  img: (cartItem.productImages?.isNotEmpty ?? false)
+                      ? cartItem.productImages![0]
+                      : '',
+                ));
           },
         ),
       ),
@@ -116,6 +112,7 @@ class _CartScreenState extends State<CartScreen> {
               const SizedBox(height: 8),
 
               TextFormField(
+                controller: promoCodeController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: ColorConstants.lightGreyColor,
@@ -126,15 +123,21 @@ class _CartScreenState extends State<CartScreen> {
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(16)),
                 ),
-                // onSaved: (code) => cartItems.promo.code = code,
-                validator: (code) {
-                  // if (code == null || code.isEmpty) {
-                  //   return cartItems.promo!.discount = 0;
-                  // } else if (code.compareTo(cartItems.promo.code)) {
-                  //   return cartItems.promo!.discount = discount;
-                  // }
-                  return null;
+                onFieldSubmitted: (code) {
+                  setState(() {
+                    discount = cartProvider.getDiscount(code);
+                    promoCodeController.text = code;
+                  });
                 },
+                // onSaved: (code) => cartItems.promo.code = code,
+                // validator: (code) {
+                //   // if (code == null || code.isEmpty) {
+                //   //   return cartItems.promo!.discount = 0;
+                //   // } else if (code.compareTo(cartItems.promo.code)) {
+                //   //   return cartItems.promo!.discount = discount;
+                //   // }
+                //   return null;
+                // },
               ),
 
               const Spacer(), // Pushes the button to the bottom
@@ -152,14 +155,14 @@ class _CartScreenState extends State<CartScreen> {
                   Row(
                     children: [
                       Text(
-                        "\$${subtotalAmount.toStringAsFixed(2)}",
+                        "\$${subtotal.toStringAsFixed(2)}",
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       Text(
-                        " - ${subtotalAmount.toStringAsFixed(2)}",
+                        " - $discount",
                         style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -181,7 +184,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
                   Text(
-                    "\$${totalAmount.toStringAsFixed(2)}",
+                    "\$${total.toStringAsFixed(2)}",
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,

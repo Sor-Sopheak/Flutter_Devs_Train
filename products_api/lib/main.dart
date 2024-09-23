@@ -15,7 +15,7 @@ FlutterCart cart = FlutterCart();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // var cart = FlutterCart();
+  var cart = FlutterCart();
   await cart.initializeCart(isPersistenceSupportEnabled: true);
   runApp(const MyApp());
 }
