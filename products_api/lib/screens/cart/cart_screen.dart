@@ -13,10 +13,8 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  // int _counter = 0;
   double discount = 0;
-
-  void applyPromoCode() {}
+  String promoteCode = "";
 
   @override
   void initState() {
@@ -71,6 +69,18 @@ class _CartScreenState extends State<CartScreen> {
                 fontSize: 32),
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              cartProvider.clearCart();
+            },
+            icon: Icon(
+              Icons.delete_outline_outlined,
+              size: 32,
+              color: ColorConstants.darkGreyColor.withOpacity(0.5)
+            )
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -80,7 +90,6 @@ class _CartScreenState extends State<CartScreen> {
           itemBuilder: (BuildContext context, int index) {
             var cartItem = cartItems[index];
             var variant = cartItem.variants.first;
-            // var discount = cartItem.promo?.discount ?? 0;
             return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 child: CartWidget(
@@ -90,7 +99,10 @@ class _CartScreenState extends State<CartScreen> {
                   category: cartItem.productDetails,
                   img: (cartItem.productImages?.isNotEmpty ?? false)
                       ? cartItem.productImages![0]
-                      : '',
+                      : '', 
+                  onMinus: () => cartProvider.decreaseQuantity(cartItem), 
+                  onAdd: () => cartProvider.increaseQuantity(cartItem), 
+                  onRemove: () => cartProvider.removeFromCart(cartItem),
                 ));
           },
         ),
@@ -112,7 +124,7 @@ class _CartScreenState extends State<CartScreen> {
               const SizedBox(height: 8),
 
               TextFormField(
-                controller: promoCodeController,
+                controller: promoCodeController..text = promoteCode,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: ColorConstants.lightGreyColor,
@@ -126,18 +138,18 @@ class _CartScreenState extends State<CartScreen> {
                 onFieldSubmitted: (code) {
                   setState(() {
                     discount = cartProvider.getDiscount(code);
-                    promoCodeController.text = code;
+                    promoteCode = code;
                   });
                 },
-                // onSaved: (code) => cartItems.promo.code = code,
-                // validator: (code) {
-                //   // if (code == null || code.isEmpty) {
-                //   //   return cartItems.promo!.discount = 0;
-                //   // } else if (code.compareTo(cartItems.promo.code)) {
-                //   //   return cartItems.promo!.discount = discount;
-                //   // }
-                //   return null;
-                // },
+                textInputAction: TextInputAction.done,
+                validator: (code) {
+                  if (code == null || code.isEmpty) {
+                    return "kfakjsdfd";
+                  } else if (cartProvider.getDiscount(code) == 0) {
+                    return "Invalid code";
+                  }
+                  return null;
+                },
               ),
 
               const Spacer(), // Pushes the button to the bottom
@@ -183,13 +195,26 @@ class _CartScreenState extends State<CartScreen> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Text(
-                    "\$${total.toStringAsFixed(2)}",
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+                  RichText(
+                    text: TextSpan(
+                      text: cartProvider.getTotalItemInCart() <= 1 
+                          ? "(${cartProvider.getTotalItemInCart()} item) "
+                          : "(${cartProvider.getTotalItemInCart()} items) ",
+                      style: TextStyle(
+                        color: ColorConstants.blackColor,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: " \$${total.toStringAsFixed(2)}",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
+                  )
+
                 ],
               ),
 

@@ -10,8 +10,6 @@ import 'package:products_api/models/promo.dart';
 class CartProvider extends ChangeNotifier {
   var flutterCart = FlutterCart();
 
-  final ListPromo _promoCodes = ListPromo.fromJson(ListPromo.getJsonData());
-
   void addToCart(Product product, int quantity, Promo? promo) {
     double subtotal = product.price * quantity;
     double discount = promo != null ? (subtotal * promo.discount / 100) : 0.0;
@@ -34,6 +32,20 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void increaseQuantity(CartModel item) {
+    int newQuantity = item.quantity + 1;
+    updateQuantity(item, newQuantity);
+  }
+
+  void decreaseQuantity(CartModel item) {
+    if (item.quantity > 1) {
+      int newQuantity = item.quantity - 1;
+      updateQuantity(item, newQuantity);
+    } else {
+      removeFromCart(item);
+    }
+  }
+
   void removeFromCart(CartModel item) {
     cart.removeItem(item.productId, item.variants);
     notifyListeners();
@@ -46,13 +58,24 @@ class CartProvider extends ChangeNotifier {
 
   double getDiscount(String code) {
     double discount = 0;
-    for (Promo promo in _promoCodes.listPromo) {
+    final promo = ListPromo.getJsonData();
+    ListPromo listPromo = ListPromo.fromJson(promo);
+    for (Promo promo in listPromo.listPromo) {
       if (promo.code == code) {
         discount = promo.discount;
         break;
       }
     }
     return discount;
+  }
+
+  int getTotalItemInCart() {
+    int totalItem = 0;
+
+    for (var item in cart.cartItemsList) {
+      totalItem += item.quantity;
+    }
+    return totalItem;
   }
 
   int get getCartCount => cart.cartLength;

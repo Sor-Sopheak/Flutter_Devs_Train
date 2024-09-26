@@ -5,9 +5,12 @@ class ListPromo {
   ListPromo({required this.listPromo});
 
   factory ListPromo.fromJson(Map<String, dynamic> json) {
-    print(">>>>>>>>>>>>>>>> ");
     return ListPromo(
-        listPromo: json['list_promo'].map((x) => Promo.fromJson(x)));
+        listPromo: List<Promo>.from(
+      json['list_promo'].map(
+        (x) => Promo.fromJson(x),
+      ),
+    ));
   }
 
   static Map<String, dynamic> getJsonData() {

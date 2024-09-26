@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:products_api/constants/color_constants.dart';
+import 'package:products_api/screens/cart/cart_provider.dart';
 
 class CartWidget extends StatefulWidget {
   final String img;
@@ -7,6 +8,9 @@ class CartWidget extends StatefulWidget {
   final double price;
   final int quantity;
   final String category;
+  final Function onMinus;
+  final Function onAdd;
+  final Function onRemove;
 
   const CartWidget(
       {super.key,
@@ -14,7 +18,10 @@ class CartWidget extends StatefulWidget {
       required this.price,
       required this.quantity,
       required this.img,
-      required this.category});
+      required this.category,
+      required this.onMinus,
+      required this.onAdd,
+      required this.onRemove});
 
   @override
   State<CartWidget> createState() => _CartWidgetState();
@@ -47,11 +54,11 @@ class _CartWidgetState extends State<CartWidget> {
                 height: 130,
                 width: 110,
               ),
-      
+
               Padding(
                 padding: const EdgeInsets.only(left: 16),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.6,
+                  width: MediaQuery.of(context).size.width * 0.64,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -81,7 +88,7 @@ class _CartWidgetState extends State<CartWidget> {
                           ),
                         ],
                       ),
-      
+
                       Text(
                         widget.category,
                         style: TextStyle(
@@ -89,38 +96,57 @@ class _CartWidgetState extends State<CartWidget> {
                           color: ColorConstants.darkGreyColor,
                         ),
                       ),
-      
+
                       const SizedBox(height: 20),
                       // Quantity control buttons
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          decoration: BoxDecoration(
-                            color: ColorConstants.lightGreyColor,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              //minus
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.remove)),
-                              const SizedBox(width: 8),
-                              //quatity
-                              Text(
-                                widget.quantity.toString(),
-                                style: const TextStyle(fontSize: 18),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Container(
+                              height: 40,
+                              width: MediaQuery.of(context).size.width * 0.3,
+                              decoration: BoxDecoration(
+                                color: ColorConstants.lightGreyColor,
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                              const SizedBox(width: 8),
-                              // Add button
-                              IconButton(
-                                  onPressed: () {}, icon: const Icon(Icons.add)),
-                            ],
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  //minus
+                                  IconButton(
+                                      onPressed: () {
+                                        widget.onMinus();
+                                      },
+                                      icon: const Icon(Icons.remove)),
+                                  const SizedBox(width: 8),
+                                  //quatity
+                                  Text(
+                                    widget.quantity.toString(),
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  // Add button
+                                  IconButton(
+                                      onPressed: () {
+                                        widget.onAdd();
+                                      },
+                                      icon: const Icon(Icons.add)),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
+                          IconButton(
+                              onPressed: () {
+                                widget.onRemove();
+                              },
+                              icon: const Icon(
+                                Icons.delete_outline_outlined,
+                                size: 26,
+                                color: Colors.red,
+                              )),
+                        ],
                       ),
                     ],
                   ),

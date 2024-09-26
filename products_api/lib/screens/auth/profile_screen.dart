@@ -104,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: MediaQuery.of(context).size.height * 0.10,
                       child: Padding(
                         padding:
-                            const EdgeInsets.only(left: 16, right: 16, top: 8),
+                            const EdgeInsets.only(left: 16, right: 16),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -112,8 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               height: 36,
                               width: 36,
                               decoration: BoxDecoration(
-                                color: ColorConstants.lightGreyColor
-                                    .withOpacity(0.3),
+                                color: ColorConstants.lightGreyColor.withOpacity(0.3),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Padding(
@@ -121,17 +120,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 child: IconButton(
                                     onPressed: () {
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => ControllerPage(page: 0)
-                                        )
-                                      );
-                                    },
-                                    icon: Icon(
-                                      Icons.arrow_back_ios,
-                                      color: ColorConstants.darkGreyColor,
-                                      size: 20,
-                                    )),
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => const ControllerPage(page: 0)
+                                      )
+                                    );
+                                  },
+                                  icon: Icon(
+                                    Icons.arrow_back_ios,
+                                    color: ColorConstants.darkGreyColor,
+                                    size: 20,
+                                  )
+                                ),
                               ),
                             ),
                             Container(
@@ -143,15 +143,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: IconButton(
-                                  onPressed: () {
-                                    Navigator.popAndPushNamed(
-                                        context, '/PagepageController');
-                                  },
-                                  icon: Icon(
-                                    Icons.edit_outlined,
-                                    color: ColorConstants.darkGreyColor,
-                                    size: 22,
-                                  )),
+                                onPressed: () {
+                                  Navigator.popAndPushNamed(
+                                      context, '/PagepageController');
+                                },
+                                icon: Icon(
+                                  Icons.edit_outlined,
+                                  color: ColorConstants.darkGreyColor,
+                                  size: 22,
+                                )
+                              ),
                             ),
                           ],
                         ),
@@ -190,7 +191,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       fontSize: 24),
                                 ),
                                 Text(
-                                  'Fashion Model',
+                                  '${_user?.address?.city}',
                                   style: TextStyle(
                                       color: ColorConstants.darkGreyColor,
                                       fontFamily: 'Poppins',
