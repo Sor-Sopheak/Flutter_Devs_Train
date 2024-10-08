@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:products_api/constants/color_constants.dart';
 import 'package:products_api/screens/cart/cart_provider.dart';
+import 'package:products_api/screens/checkout/dot_indicator.dart';
+import 'package:products_api/screens/checkout/shipping_screen.dart';
 import 'package:products_api/screens/controller_page.dart';
 import 'package:products_api/widgets/cart.dart';
 import 'package:provider/provider.dart';
@@ -71,15 +73,12 @@ class _CartScreenState extends State<CartScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              cartProvider.clearCart();
-            },
-            icon: Icon(
-              Icons.delete_outline_outlined,
-              size: 32,
-              color: ColorConstants.darkGreyColor.withOpacity(0.5)
-            )
-          ),
+              onPressed: () {
+                cartProvider.clearCart();
+              },
+              icon: Icon(Icons.delete_outline_outlined,
+                  size: 32,
+                  color: ColorConstants.darkGreyColor.withOpacity(0.5))),
         ],
       ),
       body: Padding(
@@ -98,10 +97,10 @@ class _CartScreenState extends State<CartScreen> {
                   quantity: cartItem.quantity,
                   category: cartItem.productDetails,
                   img: (cartItem.productImages?.isNotEmpty ?? false)
-                  ? cartItem.productImages![0]
-                  : '', 
-                  onMinus: () => cartProvider.decreaseQuantity(cartItem), 
-                  onAdd: () => cartProvider.increaseQuantity(cartItem), 
+                      ? cartItem.productImages![0]
+                      : '',
+                  onMinus: () => cartProvider.decreaseQuantity(cartItem),
+                  onAdd: () => cartProvider.increaseQuantity(cartItem),
                   onRemove: () => cartProvider.removeFromCart(cartItem),
                 ));
           },
@@ -197,7 +196,7 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                   RichText(
                     text: TextSpan(
-                      text: cartProvider.getTotalItemInCart() <= 1 
+                      text: cartProvider.getTotalItemInCart() <= 1
                           ? "(${cartProvider.getTotalItemInCart()} item) "
                           : "(${cartProvider.getTotalItemInCart()} items) ",
                       style: TextStyle(
@@ -214,14 +213,20 @@ class _CartScreenState extends State<CartScreen> {
                       ],
                     ),
                   )
-
                 ],
               ),
 
               const SizedBox(height: 8),
 
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DotIndicator()
+                    )
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),

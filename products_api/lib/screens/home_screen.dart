@@ -151,363 +151,337 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final favoriteProvider = Provider.of<FavoriteProvider>(context);
+    final favoriteProvider = Provider.of<FavoriteProvider>(context);
     return SafeArea(
-      child: Consumer<FavoriteProvider>(
-          builder: (context, favoriteProvider, child) {
-        return Scaffold(
-          resizeToAvoidBottomInset: true,
-          backgroundColor: ColorConstants.blackColor,
-          body: LayoutBuilder(builder: (context, constraints) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: IntrinsicHeight(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.08,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 16, right: 16, top: 8),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                  child: _isLoadingProfile
-                                      ? const CircularProgressIndicator()
-                                      : _user != null && decodedToken != null
-                                          ? Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+        child: Scaffold(
+      resizeToAvoidBottomInset: true,
+      backgroundColor: ColorConstants.blackColor,
+      body: LayoutBuilder(builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
+            child: IntrinsicHeight(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 16, right: 16, top: 8),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: _isLoadingProfile
+                                  ? const CircularProgressIndicator()
+                                  : _user != null && decodedToken != null
+                                      ? Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Welcome, ${_user!.username}!',
+                                              style: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontFamily: 'Poppins'),
+                                            ),
+                                            Row(
                                               children: [
-                                                Text(
-                                                  'Welcome, ${_user!.username}!',
-                                                  style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontFamily: 'Poppins'),
+                                                const Icon(
+                                                  Icons.location_on_rounded,
+                                                  color: Colors.grey,
+                                                  size: 22,
                                                 ),
-                                                Row(
-                                                  children: [
-                                                    const Icon(
-                                                      Icons.location_on_rounded,
+                                                const SizedBox(width: 8),
+                                                _user != null &&
+                                                        decodedToken != null
+                                                    ? Text(
+                                                        "${_user!.address?.city}, ${_user!.address?.zipcode}",
+                                                        style: TextStyle(
+                                                            color: ColorConstants
+                                                                .lightGreyColor,
+                                                            fontFamily:
+                                                                'Poppins',
+                                                            fontSize: 18),
+                                                      )
+                                                    : Text(
+                                                        "No token.",
+                                                        style: TextStyle(
+                                                            color: ColorConstants
+                                                                .lightGreyColor,
+                                                            fontFamily:
+                                                                'Poppins',
+                                                            fontSize: 18),
+                                                      ),
+                                                IconButton(
+                                                    onPressed: () {},
+                                                    icon: const Icon(
+                                                      Icons
+                                                          .keyboard_arrow_down_outlined,
                                                       color: Colors.grey,
-                                                      size: 22,
-                                                    ),
-                                                    const SizedBox(width: 8),
-                                                    _user != null &&
-                                                            decodedToken != null
-                                                        ? Text(
-                                                            "${_user!.address?.city}, ${_user!.address?.zipcode}",
-                                                            style: TextStyle(
-                                                                color: ColorConstants
-                                                                    .lightGreyColor,
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                                fontSize: 18),
-                                                          )
-                                                        : Text(
-                                                            "No token.",
-                                                            style: TextStyle(
-                                                                color: ColorConstants
-                                                                    .lightGreyColor,
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                                fontSize: 18),
-                                                          ),
-                                                    IconButton(
-                                                        onPressed: () {},
-                                                        icon: const Icon(
-                                                          Icons
-                                                              .keyboard_arrow_down_outlined,
-                                                          color: Colors.grey,
-                                                        ))
-                                                  ],
-                                                ),
+                                                    ))
                                               ],
-                                            )
-                                          : const Text(
-                                              "not loading",
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            )),
-                              const SizedBox(width: 8),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
+                                            ),
+                                          ],
+                                        )
+                                      : const Text(
+                                          "not loading",
+                                          style: TextStyle(color: Colors.white),
+                                        )),
+                          const SizedBox(width: 8),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: ColorConstants.darkGreyColor,
+                            ),
+                            child: IconButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ControllerPage(page: 1)));
+                                },
+                                icon: const FaIcon(
+                                  FontAwesomeIcons.cartArrowDown,
+                                  color: Colors.white,
+                                )),
+                          ),
+                          const SizedBox(width: 8),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: ColorConstants.darkGreyColor,
+                            ),
+                            child: IconButton(
+                                onPressed: () {},
+                                icon: const FaIcon(FontAwesomeIcons.solidBell,
+                                    color: Colors.white)),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.062,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 16, right: 16, bottom: 16),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
                                   color: ColorConstants.darkGreyColor,
-                                ),
-                                child: IconButton(
-                                    onPressed: () {
-                                      Navigator.of(context).push(
+                                  borderRadius: BorderRadius.circular(14)),
+                              child: TextField(
+                                decoration: InputDecoration(
+                                    hintText: _isFocused ? null : "Search",
+                                    hintStyle: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontFamily: 'Poppins',
+                                    ),
+                                    contentPadding:
+                                        const EdgeInsets.only(bottom: 12),
+                                    prefixIcon: const Icon(
+                                      Icons.search,
+                                      color: Colors.white,
+                                    ),
+                                    enabledBorder: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(14),
+                                      ),
+                                      borderSide:
+                                          BorderSide(color: Colors.transparent),
+                                    ),
+                                    focusedBorder: const OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(14)),
+                                        borderSide:
+                                            BorderSide(color: Colors.white))),
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: ColorConstants.darkGreyColor,
+                            ),
+                            child: IconButton(
+                                onPressed: () {},
+                                icon: const FaIcon(
+                                  FontAwesomeIcons.bars,
+                                  color: Colors.white,
+                                )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  // category
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: SizedBox(
+                      height: 45,
+                      child: _isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: _categories.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final category = _categories[index];
+                                return GestureDetector(
+                                  onTap: (() {
+                                    setState(() {
+                                      _selectedCategoryIndex = index;
+                                      getProductsByCategory(category.name);
+                                    });
+                                  }),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8, horizontal: 16),
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 4),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.white),
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: _selectedCategoryIndex == index
+                                          ? Colors.white
+                                          : Colors.transparent,
+                                    ),
+                                    child: Text(
+                                      _categories[index].name.capitalize(),
+                                      style: TextStyle(
+                                          color: _selectedCategoryIndex == index
+                                              ? Colors.black
+                                              : Colors.white,
+                                          fontWeight:
+                                              _selectedCategoryIndex == index
+                                                  ? FontWeight.w600
+                                                  : FontWeight.normal,
+                                          fontFamily: 'Poppins',
+                                          fontSize: 18),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.698,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(16),
+                            topRight: Radius.circular(16))),
+                    child: Column(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                                padding: const EdgeInsets.all(16),
+                                child: const ProductTitle(
+                                    title: "Special Offers")),
+                            SizedBox(
+                              height: 150,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: _limitProducts.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return GestureDetector(
+                                    onTap: (() {
+                                      Navigator.push(
+                                          context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ControllerPage(
-                                                      page: 1)));
+                                                  DetailScreen(
+                                                      product: _limitProducts[
+                                                          index])));
+                                    }),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 16),
+                                      child: _isLoading5Products
+                                          ? const Center(
+                                              child:
+                                                  CircularProgressIndicator())
+                                          : ProductOrder(
+                                              img: _limitProducts[index].image,
+                                              type: _limitProducts[index]
+                                                  .category,
+                                              name: _limitProducts[index].title,
+                                              promo: "Dilivery Today",
+                                            ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Container(
+                                padding: const EdgeInsets.all(16),
+                                child: const ProductTitle(
+                                    title: "Featured Products")),
+                            SizedBox(
+                              height: 390,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: _products.length,
+                                // itemCount: _products.category.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DetailScreen(
+                                                      product:
+                                                          _products[index])));
                                     },
-                                    icon: const FaIcon(
-                                      FontAwesomeIcons.cartArrowDown,
-                                      color: Colors.white,
-                                    )),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 16),
+                                      child: _isLoadingProducts
+                                          ? const Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            )
+                                          : ProductWidget(
+                                              id: _products[index].id,
+                                              title: _products[index].title,
+                                              type: _products[index].category,
+                                              price: _products[index].price,
+                                              img: _products[index].image,
+                                              favorite: (isFav) => {
+                                                favoriteProvider.toggleFav(
+                                                    _products[index].id)
+                                              },
+                                            ),
+                                    ),
+                                  );
+                                },
                               ),
-                              const SizedBox(width: 8),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: ColorConstants.darkGreyColor,
-                                ),
-                                child: IconButton(
-                                    onPressed: () {},
-                                    icon: const FaIcon(
-                                        FontAwesomeIcons.solidBell,
-                                        color: Colors.white)),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.062,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 16, right: 16, bottom: 16),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: ColorConstants.darkGreyColor,
-                                      borderRadius: BorderRadius.circular(14)),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        hintText: _isFocused ? null : "Search",
-                                        hintStyle: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontFamily: 'Poppins',
-                                        ),
-                                        contentPadding:
-                                            const EdgeInsets.only(bottom: 12),
-                                        prefixIcon: const Icon(
-                                          Icons.search,
-                                          color: Colors.white,
-                                        ),
-                                        enabledBorder: const OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(14),
-                                          ),
-                                          borderSide: BorderSide(
-                                              color: Colors.transparent),
-                                        ),
-                                        focusedBorder: const OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(14)),
-                                            borderSide: BorderSide(
-                                                color: Colors.white))),
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: ColorConstants.darkGreyColor,
-                                ),
-                                child: IconButton(
-                                    onPressed: () {},
-                                    icon: const FaIcon(
-                                      FontAwesomeIcons.bars,
-                                      color: Colors.white,
-                                    )),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      // category
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16),
-                        child: SizedBox(
-                          height: 45,
-                          child: _isLoading
-                              ? const Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: _categories.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    final category = _categories[index];
-                                    return GestureDetector(
-                                      onTap: (() {
-                                        setState(() {
-                                          _selectedCategoryIndex = index;
-                                          getProductsByCategory(category.name);
-                                        });
-                                      }),
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8, horizontal: 16),
-                                        margin: const EdgeInsets.symmetric(
-                                            horizontal: 4),
-                                        decoration: BoxDecoration(
-                                          border:
-                                              Border.all(color: Colors.white),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: _selectedCategoryIndex == index
-                                              ? Colors.white
-                                              : Colors.transparent,
-                                        ),
-                                        child: Text(
-                                          _categories[index].name.capitalize(),
-                                          style: TextStyle(
-                                              color: _selectedCategoryIndex ==
-                                                      index
-                                                  ? Colors.black
-                                                  : Colors.white,
-                                              fontWeight:
-                                                  _selectedCategoryIndex ==
-                                                          index
-                                                      ? FontWeight.w600
-                                                      : FontWeight.normal,
-                                              fontFamily: 'Poppins',
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 20),
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.698,
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(16),
-                                topRight: Radius.circular(16))),
-                        child: Column(
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                    padding: const EdgeInsets.all(16),
-                                    child: const ProductTitle(
-                                        title: "Special Offers")),
-                                SizedBox(
-                                  height: 150,
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: _limitProducts.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return GestureDetector(
-                                        onTap: (() {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DetailScreen(
-                                                          product:
-                                                              _limitProducts[
-                                                                  index])));
-                                        }),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 16),
-                                          child: _isLoading5Products
-                                              ? const Center(
-                                                  child:
-                                                      CircularProgressIndicator())
-                                              : ProductOrder(
-                                                  img: _limitProducts[index]
-                                                      .image,
-                                                  type: _limitProducts[index]
-                                                      .category,
-                                                  name: _limitProducts[index]
-                                                      .title,
-                                                  promo: "Dilivery Today",
-                                                ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(height: 2),
-                                Container(
-                                    padding: const EdgeInsets.all(16),
-                                    child: const ProductTitle(
-                                        title: "Featured Products")),
-                                SizedBox(
-                                  height: 390,
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: _products.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      bool isFav = favoriteProvider
-                                          .isFavorite(_products[index].id);
-                                      print(">>>>>>>>>>>>>>>>>>>>>2 ${index}");
-                                      print(">>>>>>>>>>>>>>>>>>>>>2 ${isFav}");
-                                      print(
-                                          ">>>>>>>>>>>>>>>>>>>>>3 ${favoriteProvider.getListFavorite()}");
-                                      return GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DetailScreen(
-                                                          product: _products[
-                                                              index])));
-                                        },
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 16),
-                                          child: _isLoadingProducts
-                                              ? const Center(
-                                                  child:
-                                                      CircularProgressIndicator(),
-                                                )
-                                              : ProductWidget(
-                                                  title: _products[index].title,
-                                                  type:
-                                                      _products[index].category,
-                                                  price: _products[index].price,
-                                                  img: _products[index].image,
-                                                  isFavourite: isFav,
-                                                  favorite: (isFav) => {
-                                                    favoriteProvider.toggleFav(
-                                                        _products[index].id)
-                                                  },
-                                                ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ],
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            );
-          }),
+            ),
+          ),
         );
       }),
-    );
+    ));
   }
 }

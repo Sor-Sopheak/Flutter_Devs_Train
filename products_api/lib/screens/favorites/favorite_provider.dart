@@ -12,10 +12,10 @@ class FavoriteProvider extends ChangeNotifier {
   void _loadFavorites() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _favoriteProductIds = prefs
-            .getStringList('favoriteProductIds')
-            ?.map((id) => int.parse(id))
-            .toList() ??
-        [];
+      .getStringList('favoriteProductIds')
+      ?.map((id) => int.parse(id))
+      .toList() ?? [];
+
     notifyListeners();
   }
 
@@ -35,7 +35,6 @@ class FavoriteProvider extends ChangeNotifier {
     }
     _saveFavorites();
     notifyListeners();
-    print(">>>>>>>>>>>>>>>>>>>>>1");
   }
 
   bool isFavorite(int productId) {
@@ -48,7 +47,8 @@ class FavoriteProvider extends ChangeNotifier {
 
   List<Product> getFavoriteProducts(List<Product> allProducts) {
     return allProducts
-        .where((product) => _favoriteProductIds.contains(product.id))
+        .where((product) => _favoriteProductIds
+        .contains(product.id))
         .toList();
   }
 

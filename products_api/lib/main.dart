@@ -4,6 +4,7 @@ import 'package:products_api/constants/color_constants.dart';
 import 'package:products_api/screens/auth/guest_screen.dart';
 import 'package:products_api/screens/cart/cart_provider.dart';
 import 'package:products_api/screens/cart/cart_screen.dart';
+import 'package:products_api/screens/checkout/shipping_screen.dart';
 import 'package:products_api/screens/controller_page.dart';
 import 'package:products_api/screens/favorites/favorite_provider.dart';
 import 'package:products_api/screens/home_screen.dart';
@@ -45,7 +46,8 @@ class MyApp extends StatelessWidget {
           '/login': (context) => const LoginScreen(),
           '/register': (context) => const RegisterScreen(),
           '/home': (context) => const HomeScreen(),
-          'cart': (context) => const CartScreen(),
+          '/cart': (context) => const CartScreen(),
+          '/shipping': (context) => const ShippingScreen(),
           '/pageController': (context) => const ControllerPage(page: 0)
         },
       )
