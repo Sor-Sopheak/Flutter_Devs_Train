@@ -17,11 +17,12 @@ class CartProvider extends ChangeNotifier {
 
     flutterCart.addToCart(
       cartModel: CartModel(
-          productId: product.id.toString(),
-          productName: product.title,
-          variants: [ProductVariant(price: product.price)],
-          productDetails: product.category,
-          productImages: [product.image]),
+        productId: product.id.toString(),
+        productName: product.title,
+        variants: [ProductVariant(price: product.price)],
+        productDetails: product.category,
+        productImages: [product.image]
+      ),
     );
 
     notifyListeners();

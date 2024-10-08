@@ -3,14 +3,11 @@ import 'package:products_api/constants/color_constants.dart';
 import 'package:products_api/models/product.dart';
 import 'package:products_api/screens/cart/cart_provider.dart';
 import 'package:products_api/screens/controller_page.dart';
-import 'package:products_api/screens/detail_screen.dart';
+import 'package:products_api/screens/favorites/favorite_provider.dart';
 import 'package:products_api/services/product.api.dart';
 import 'package:provider/provider.dart';
 
 class FavoriteScreen extends StatefulWidget {
-
-  
-
   const FavoriteScreen({super.key});
 
   @override
@@ -19,7 +16,6 @@ class FavoriteScreen extends StatefulWidget {
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
   List<Product> _products = [];
-  // late final Product favProduct;
   bool _isLoading = true;
 
   @override
@@ -37,7 +33,11 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final favoriteProvider = Provider.of<FavoriteProvider>(context);
+    final favoriteProducts = favoriteProvider.getFavoriteProducts(_products);
+
     final cartProvider = Provider.of<CartProvider>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -82,15 +82,16 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: ListView.builder(
           scrollDirection: Axis.vertical,
-          itemCount: _products.length,
+          itemCount: favoriteProducts.length,
           itemBuilder: (BuildContext context, int index) {
+            final product = favoriteProducts[index];
             return GestureDetector(
                 onTap: (() {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              DetailScreen(product: _products[index])));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) =>
+                  //             DetailScreen(product: _products[index])));
                 }),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
@@ -99,7 +100,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       Row(
                         children: [
                           Image.network(
-                            _products[index].image,
+                            product.image,
                             fit: BoxFit.cover,
                             height: 130,
                             width: 110,
@@ -129,7 +130,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                       ),
                                       const SizedBox(width: 10),
                                       Text(
-                                        "\$${_products[index].price}",
+                                        "\$${product.price}",
                                         style: const TextStyle(
                                             fontFamily: 'Poppins',
                                             fontWeight: FontWeight.w600,
@@ -139,7 +140,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                     ],
                                   ),
                                   Text(
-                                    _products[index].category,
+                                    product.category,
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
                                       color: ColorConstants.darkGreyColor,
@@ -162,7 +163,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                       const BorderRadius.all(
                                                           Radius.circular(4))),
                                               child: IconButton(
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    favoriteProvider.removeAFavorite(product.id);
+                                                  },
                                                   icon: const Icon(
                                                     Icons
                                                         .delete_outline_outlined,

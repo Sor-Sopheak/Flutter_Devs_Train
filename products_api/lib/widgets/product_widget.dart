@@ -8,14 +8,14 @@ class ProductWidget extends StatefulWidget {
   final String type;
   final double price;
   final bool isFavourite;
-  final Function favorite;
+  final Function(bool) favorite;
 
   const ProductWidget({
     super.key,
     required this.title,
     required this.type,
     required this.price,
-    this.isFavourite = false,
+    required this.isFavourite,
     required this.img,
     required this.favorite,
   });
@@ -35,6 +35,7 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print("**** ${isFavourite}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -61,14 +62,14 @@ class _ProductWidgetState extends State<ProductWidget> {
                     onPressed: () {
                       setState(() {
                         isFavourite = !isFavourite;
-                        widget.favorite();
+                        widget.favorite(isFavourite);
                       });
                     },
                     icon: Icon(
-                      isFavourite
+                      !isFavourite
                           ? Icons.favorite_border_rounded
                           : Icons.favorite_rounded,
-                      color: isFavourite
+                      color: !isFavourite
                           ? ColorConstants.darkGreyColor
                           : Colors.red,
                       size: 32,

@@ -10,7 +10,7 @@ class Product {
   final String category;
   final String image;
   final Rating rating;
-  final bool isFavorite;
+  bool isFavorite;
 
   Product({
     required this.id,

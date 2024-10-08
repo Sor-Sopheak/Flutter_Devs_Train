@@ -5,6 +5,7 @@ import 'package:products_api/screens/auth/guest_screen.dart';
 import 'package:products_api/screens/cart/cart_provider.dart';
 import 'package:products_api/screens/cart/cart_screen.dart';
 import 'package:products_api/screens/controller_page.dart';
+import 'package:products_api/screens/favorites/favorite_provider.dart';
 import 'package:products_api/screens/home_screen.dart';
 import 'package:products_api/screens/auth/login_screen.dart';
 import 'package:products_api/screens/auth/register_screen.dart';
@@ -25,8 +26,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => CartProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context) => FavoriteProvider())
+      ],
+      
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

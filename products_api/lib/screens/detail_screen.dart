@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:products_api/constants/color_constants.dart';
 import 'package:products_api/models/product.dart';
 import 'package:products_api/screens/cart/cart_provider.dart';
+import 'package:products_api/screens/favorites/favorite_provider.dart';
 import 'package:products_api/widgets/product_detail.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +26,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final favoriteProvider = Provider.of<FavoriteProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -59,9 +60,16 @@ class _DetailScreenState extends State<DetailScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.favorite_border_rounded,
+            onPressed: () {
+              favoriteProvider.toggleFav(widget.product.id);
+            },
+            icon: Icon(
+              favoriteProvider.isFavorite(widget.product.id)
+                ? Icons.favorite_rounded
+                : Icons.favorite_border_rounded,
+              color: favoriteProvider.isFavorite(widget.product.id)
+                ? Colors.red
+                : ColorConstants.darkGreyColor,
               size: 32,
             ),
           ),
@@ -104,8 +112,7 @@ class _DetailScreenState extends State<DetailScreen> {
           onPressed: () {
             cartProvider.addToCart(widget.product, 1, null);
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Produt added to cart!'))
-              );
+                const SnackBar(content: Text('Produt added to cart!')));
           },
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(

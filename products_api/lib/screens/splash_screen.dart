@@ -15,7 +15,6 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   // SharedPreferences prefs = SharedPreferences.getInstance();
-  // String token =
 
   Future<void> loadToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -27,7 +26,8 @@ class _SplashScreenState extends State<SplashScreen> {
           MaterialPageRoute(builder: (context) => const ControllerPage(page: 0)));
     } else {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const GuestScreen()));
+        MaterialPageRoute(builder: (context) => const GuestScreen())
+      );
     }
   }
 

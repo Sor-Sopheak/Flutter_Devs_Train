@@ -8,8 +8,7 @@ class User {
   String? phone;
   int? iV;
 
-  User(
-      {this.address,
+  User({this.address,
       this.id,
       this.email,
       this.username,
@@ -18,6 +17,8 @@ class User {
       this.phone,
       this.iV});
 
+
+  //helper methods like toJson() and fromJson()
   User.fromJson(Map<String, dynamic> json) {
     address =
         json['address'] != null ? new Address.fromJson(json['address']) : null;

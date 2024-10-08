@@ -98,8 +98,8 @@ class _CartScreenState extends State<CartScreen> {
                   quantity: cartItem.quantity,
                   category: cartItem.productDetails,
                   img: (cartItem.productImages?.isNotEmpty ?? false)
-                      ? cartItem.productImages![0]
-                      : '', 
+                  ? cartItem.productImages![0]
+                  : '', 
                   onMinus: () => cartProvider.decreaseQuantity(cartItem), 
                   onAdd: () => cartProvider.increaseQuantity(cartItem), 
                   onRemove: () => cartProvider.removeFromCart(cartItem),
