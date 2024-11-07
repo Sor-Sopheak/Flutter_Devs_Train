@@ -142,8 +142,6 @@ class _ShippingScreenState extends State<ShippingScreen> {
                             ),
                           ],
                         ),
-
-                        
                       ],
                     )
                   ],
