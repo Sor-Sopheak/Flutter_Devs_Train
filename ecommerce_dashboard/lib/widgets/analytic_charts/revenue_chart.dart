@@ -35,7 +35,7 @@ class RevenueChart extends StatelessWidget {
         position: LegendPosition.bottom,
         iconHeight: 10,
         iconWidth: 10,
-        itemPadding: 10,
+        itemPadding: 8,
         overflowMode: LegendItemOverflowMode.wrap,
         alignment: ChartAlignment.center,
       ),

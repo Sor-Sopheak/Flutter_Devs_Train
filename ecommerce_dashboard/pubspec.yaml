@@ -44,6 +44,9 @@ dependencies:
   dotted_border: ^2.1.0
   dotted_line: ^3.2.3
   data_table_2: ^2.5.15
+  geolocator: ^13.0.1
+  percent_indicator: ^4.2.3
+  sidebarx: ^0.17.1
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +79,7 @@ flutter:
     - assets/icons/search.svg
     - assets/icons/analytic.svg
     - assets/icons/person_circle.svg
+    - assets/icons/mode_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

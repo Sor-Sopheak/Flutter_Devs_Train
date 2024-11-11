@@ -37,14 +37,17 @@ class CustomTextButton extends StatelessWidget {
         ),
       ),
       onPressed: () => onPressed(index),
-      child: Text(
-        text,
-        style: TextStyle(
-          color: 
-          isDifferentColor 
-          ? (isActive ? AppColors.whiteColor : AppColors.blueColor)
-          : (isActive ? Colors.white : AppColors.lightBlueColor),
-          fontSize: 12,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: 
+            isDifferentColor 
+            ? (isActive ? AppColors.whiteColor : AppColors.blueColor)
+            : (isActive ? Colors.white : AppColors.lightBlueColor),
+            fontSize: 12,
+          ),
         ),
       ),
     );   

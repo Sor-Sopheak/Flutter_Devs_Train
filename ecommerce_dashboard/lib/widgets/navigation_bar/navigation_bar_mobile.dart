@@ -1,4 +1,5 @@
 import 'package:ecommerce_dashboard/constants/app_colors.dart';
+import 'package:ecommerce_dashboard/widgets/profiles/user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -59,20 +60,8 @@ class NavigationBarMobile extends StatelessWidget implements PreferredSizeWidget
             color: AppColors.greyColor,
           ),
         ),
-        
-        Container(
-          margin: const EdgeInsets.only(right: 16),
-          width: 36,
-          height: 36,
-          clipBehavior: Clip.antiAlias,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-          ),
-          child: Image.asset(
-            'assets/images/user_profile.jpg',
-            fit: BoxFit.cover,
-          ),
-        ),
+
+        const UserProfile(image: 'assets/images/user_profile.jpg')
 
       ],
     );

@@ -13,7 +13,7 @@ class ButtonIcon extends StatelessWidget {
       required this.icon,
       this.action,
       this.height,
-      this.width,
+      this.width = 36,
       required this.iconColor,
       required this.backgroundColor});
 
@@ -25,12 +25,12 @@ class ButtonIcon extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
           constraints: BoxConstraints(
-            minWidth: 36,
+            minWidth: width!,
             maxWidth: width ?? double.infinity,
           ),
           height: height,
           decoration: BoxDecoration(
-            color: backgroundColor.withOpacity(0.1),
+            color: backgroundColor.withOpacity(0.2),
             borderRadius: BorderRadius.circular(4),
           ),
           child: icon is SvgPicture // Check if the icon is a SvgPicture

@@ -1,5 +1,6 @@
-import 'package:ecommerce_dashboard/constants/app_colors.dart';
+import 'package:ecommerce_dashboard/widgets/texts/text_display.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class GreetingText extends StatelessWidget {
   final String greeting;
@@ -13,28 +14,27 @@ class GreetingText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(
-        text: '${greeting}, ',
-        style: const TextStyle(
-            fontSize: 18,
-            color: AppColors.blackColor,
-            fontWeight: FontWeight.w700),
-        children: <TextSpan>[
-          TextSpan(
-            text: '${userName}!',
-          ),
-          TextSpan(
-            text: '\n${description}',
-            style: const TextStyle(
-              fontSize: 14,
-              height: 2,
-              color: AppColors.greyColor,
-              fontWeight: FontWeight.w400,
+    return ResponsiveBuilder(builder: (context, sizingInformation) {
+      TextStyle titleStyle = titleTextStyle(sizingInformation.deviceScreenType);
+      TextStyle descriptionStyle =
+          descriptionTextStyle(sizingInformation.deviceScreenType);
+      
+      return RichText(
+        text: TextSpan(
+          text: '${greeting}, ',
+          style: titleStyle,
+          children: <TextSpan>[
+            TextSpan(
+              text: '${userName}!',
             ),
-          ),
-        ],
-      ),
-    );
+            TextSpan(
+              text: '\n${description}',
+              style: descriptionStyle,
+            ),
+
+          ],
+        ),
+      );
+    });
   }
 }

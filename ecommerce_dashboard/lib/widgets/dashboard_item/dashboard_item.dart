@@ -3,7 +3,10 @@ import 'dart:math';
 import 'package:ecommerce_dashboard/constants/app_colors.dart';
 import 'package:ecommerce_dashboard/constants/form_number.dart';
 import 'package:ecommerce_dashboard/widgets/buttons/icon_item.dart';
+import 'package:ecommerce_dashboard/widgets/constraints/sized_box_spacing.dart';
+import 'package:ecommerce_dashboard/widgets/texts/text_display.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class DashboardItem extends StatelessWidget {
   final String title;
@@ -49,14 +52,22 @@ class DashboardItem extends StatelessWidget {
       changeIcon = Icons.add;
     }
 
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4.0),
-      ),
-      color: AppColors.whiteColor,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: IntrinsicHeight(
+    return ResponsiveBuilder(builder: (context, sizingInformation) {
+      TextStyle largeTitleStyle =
+          LargeTitleTextStyle(sizingInformation.deviceScreenType);
+      TextStyle descriptionStyle =
+          descriptionTextStyle(sizingInformation.deviceScreenType);
+
+      SizedBox heightSized = HeightSized(sizingInformation.deviceScreenType);
+      
+
+      return Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+        color: AppColors.whiteColor,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
           child: IntrinsicHeight(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,31 +75,20 @@ class DashboardItem extends StatelessWidget {
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       title.toUpperCase(),
-                      style: const TextStyle(
-                        color: AppColors.greyColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: descriptionStyle,
                     ),
-                    const SizedBox(
-                      height: 12,
-                    ),
+                    heightSized,
                     Text(
                       isNormalNumber
                           ? formatNumber(total.toString().replaceAll(',', ''))
                           : formatCompactNumber(total),
-                      style: const TextStyle(
-                        color: AppColors.blackColor,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: largeTitleStyle,
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
+                    heightSized,
                     Text(
                       navigateText,
                       style: const TextStyle(
@@ -143,7 +143,7 @@ class DashboardItem extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
