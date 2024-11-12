@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:ecommerce_dashboard/constants/app_colors.dart';
 import 'package:ecommerce_dashboard/constants/form_number.dart';
+import 'package:ecommerce_dashboard/styles/on_hover_button.dart';
 import 'package:ecommerce_dashboard/widgets/buttons/icon_item.dart';
 import 'package:ecommerce_dashboard/widgets/constraints/sized_box_spacing.dart';
 import 'package:ecommerce_dashboard/widgets/texts/text_display.dart';
@@ -61,85 +62,88 @@ class DashboardItem extends StatelessWidget {
       SizedBox heightSized = HeightSized(sizingInformation.deviceScreenType);
       
 
-      return Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4.0),
-        ),
-        color: AppColors.whiteColor,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: IntrinsicHeight(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      title.toUpperCase(),
-                      style: descriptionStyle,
-                    ),
-                    heightSized,
-                    Text(
-                      isNormalNumber
-                          ? formatNumber(total.toString().replaceAll(',', ''))
-                          : formatCompactNumber(total),
-                      style: largeTitleStyle,
-                    ),
-                    heightSized,
-                    Text(
-                      navigateText,
-                      style: const TextStyle(
-                        color: AppColors.blueColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        decoration: TextDecoration.underline,
-                        decorationColor: AppColors.blueColor,
+      return OnHoverButton(
+        child: Card(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          color: AppColors.whiteColor,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: IntrinsicHeight(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        title.toUpperCase(),
+                        style: descriptionStyle,
                       ),
-                    )
-                  ],
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Row(
-                      children: [
-                        Transform.rotate(
-                          angle: (status > 0)
-                              ? 0
-                              : (status < 0)
-                                  ? 180 * pi / 180
-                                  : 0,
-                          child: Icon(
-                            changeIcon,
-                            color: changeColor,
-                            size: 12,
-                          ),
+                      heightSized,
+                      Text(
+                        isNormalNumber
+                            ? formatNumber(total.toString().replaceAll(',', ''))
+                            : formatCompactNumber(total),
+                        style: largeTitleStyle,
+                      ),
+                      heightSized,
+                      Text(
+                        navigateText,
+                        style: const TextStyle(
+                          color: AppColors.blueColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          decoration: TextDecoration.underline,
+                          decorationColor: AppColors.blueColor,
                         ),
-                        Text(
-                          status > 0
-                              ? '+${totalRate} %'
-                              : status < 0
-                                  ? '-${totalRate.abs()} %'
-                                  : '0.00 %',
-                          style: TextStyle(
-                            color: changeColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
+                      )
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Row(
+                        children: [
+                          Transform.rotate(
+                            angle: (status > 0)
+                                ? 0
+                                : (status < 0)
+                                    ? 180 * pi / 180
+                                    : 0,
+                            child: Icon(
+                              changeIcon,
+                              color: changeColor,
+                              size: 12,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    IconItem(
-                      icon: icon,
-                      backgroundColor: backgroundColor,
-                    ),
-                  ],
-                ),
-              ],
+                          Text(
+                            status > 0
+                                ? '+${totalRate} %'
+                                : status < 0
+                                    ? '-${totalRate.abs()} %'
+                                    : '0.00 %',
+                            style: TextStyle(
+                              color: changeColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                      IconItem(
+                        icon: icon,
+                        backgroundColor: backgroundColor,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

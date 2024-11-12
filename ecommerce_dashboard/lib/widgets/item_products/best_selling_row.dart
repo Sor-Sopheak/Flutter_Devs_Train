@@ -1,5 +1,6 @@
 import 'package:ecommerce_dashboard/constants/app_colors.dart';
 import 'package:ecommerce_dashboard/constants/form_number.dart';
+import 'package:ecommerce_dashboard/styles/on_hover_background.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -44,171 +45,178 @@ class BestSellingRow extends StatelessWidget {
         widthSpace = 8.0;
       }
 
-      return Padding(
-        padding: EdgeInsets.all(paddingItems),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4.0),
-              child: Image.asset(
-                itemImage,
-                width: 40,
-                height: 45,
-                fit: BoxFit.cover,
-              ),
-            ),
-            const SizedBox(
-              width: 8,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      return OnHoverBackground(builder: (isHovered) {
+        final bgColor = isHovered ? AppColors.backgroundColor : AppColors.whiteColor;
+        return Container(
+          color: bgColor,
+          child: Padding(
+            padding: EdgeInsets.all(paddingItems),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  itemName,
-                  style: const TextStyle(
-                    fontSize: 16,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(4.0),
+                  child: Image.asset(
+                    itemImage,
+                    width: 40,
+                    height: 45,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      itemName,
+                      style: const TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(
+                      height: heightSpace,
+                    ),
+                    Text(
+                      date,
+                      style: const TextStyle(
+                        color: AppColors.greyColor,
+                        fontSize: 14,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  width: widthSpace,
+                ),
+                SizedBox(
+                  width: 80,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "\$${price.toString()}",
+                        style: const TextStyle(
+                          color: AppColors.blackColor,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      const Text(
+                        "Price",
+                        style:
+                            TextStyle(color: AppColors.greyColor, fontSize: 14),
+                      )
+                    ],
                   ),
                 ),
                 SizedBox(
                   height: heightSpace,
                 ),
-                Text(
-                  date,
-                  style: const TextStyle(
-                    color: AppColors.greyColor,
-                    fontSize: 14,
+                SizedBox(
+                  width: 80,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '$orders',
+                        style: const TextStyle(
+                          color: AppColors.blackColor,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      const Text(
+                        "Orders",
+                        style: TextStyle(
+                          color: AppColors.greyColor,
+                          fontSize: 14,
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
-            SizedBox(
-              width: widthSpace,
-            ),
-            SizedBox(
-              width: 80,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "\$${price.toString()}",
-                    style: const TextStyle(
-                      color: AppColors.blackColor,
-                      fontSize: 16,
+                ),
+                SizedBox(
+                  height: heightSpace,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding:
+                          const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+                      decoration: BoxDecoration(
+                          color: stock == 0
+                              ? AppColors.redColor.withOpacity(.2)
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(4)),
+                      child: Text(
+                        stock == 0 ? 'Out of stock' : '$stock',
+                        style: TextStyle(
+                          color: stock == 0
+                              ? AppColors.redColor
+                              : AppColors.blackColor,
+                          fontSize: stock == 0 ? 12 : 16,
+                        ),
+                      ),
                     ),
-                  ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    const Text(
+                      "Stock",
+                      style: TextStyle(
+                        color: AppColors.greyColor,
+                        fontSize: 14,
+                      ),
+                    )
+                  ],
+                ),
+                if (stock == 0) ...{
                   const SizedBox(
-                    height: 8,
+                    height: 16,
                   ),
-                  const Text(
-                    "Price",
-                    style: TextStyle(color: AppColors.greyColor, fontSize: 14),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: heightSpace,
-            ),
-            SizedBox(
-              width: 80,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '$orders',
-                    style: const TextStyle(
-                      color: AppColors.blackColor,
-                      fontSize: 16,
-                    ),
-                  ),
+                } else ...{
                   const SizedBox(
-                    height: 8,
+                    width: 45,
                   ),
-                  const Text(
-                    "Orders",
-                    style: TextStyle(
-                      color: AppColors.greyColor,
-                      fontSize: 14,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: heightSpace,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-                  decoration: BoxDecoration(
-                      color: stock == 0
-                          ? AppColors.redColor.withOpacity(.2)
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.circular(4)),
-                  child: Text(
-                    stock == 0 ? 'Out of stock' : '$stock',
-                    style: TextStyle(
-                      color: stock == 0
-                          ? AppColors.redColor
-                          : AppColors.blackColor,
-                      fontSize: stock == 0 ? 12 : 16,
-                    ),
-                  ),
-                ),
+                },
                 const SizedBox(
-                  height: 8,
+                  width: 16,
                 ),
-                const Text(
-                  "Stock",
-                  style: TextStyle(
-                    color: AppColors.greyColor,
-                    fontSize: 14,
-                  ),
-                )
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "\$${formatNumber(amount.toString().replaceAll(',', ''))}",
+                      style: const TextStyle(
+                        color: AppColors.blackColor,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    const Text(
+                      "Amount",
+                      style: TextStyle(
+                        color: AppColors.greyColor,
+                        fontSize: 14,
+                      ),
+                    )
+                  ],
+                ),
               ],
             ),
-            if (stock == 0) ...{
-              const SizedBox(
-                height: 16,
-              ),
-            } else ...{
-              const SizedBox(
-                width: 45,
-              ),
-            },
-            const SizedBox(
-              width: 16,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "\$${formatNumber(amount.toString().replaceAll(',', ''))}",
-                  style: const TextStyle(
-                    color: AppColors.blackColor,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                const Text(
-                  "Amount",
-                  style: TextStyle(
-                    color: AppColors.greyColor,
-                    fontSize: 14,
-                  ),
-                )
-              ],
-            ),
-          ],
-        ),
-      );
+          ),
+        );
+      });
     });
   }
 }

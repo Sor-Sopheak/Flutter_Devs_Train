@@ -54,7 +54,7 @@ class _BestSaleProductAndSalerState extends State<BestSaleProductAndSaler> {
               child: _buildBestSellingSection(),
             ),
             const SizedBox(
-              width: 32,
+              width: 16,
             ),
             //top sellers
             Expanded(flex: 1, child: _buildBestSalerSection()),
