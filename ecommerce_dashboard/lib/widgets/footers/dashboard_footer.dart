@@ -18,23 +18,21 @@ class DashboardFooter extends StatelessWidget {
           borderRadius: BorderRadius.circular(4.0),
           color: AppColors.whiteColor,
         ),
-        child: Expanded(
-          child: Padding(
-            padding: paddingAll,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "2024 © Velzon.",
-                  style: descriptionStyle,
-                ),
-                Text(
-                  "Design & Develop by Themesbrand",
-                  style: descriptionStyle,
-                )
-              ],
-            ),
+        child: Padding(
+          padding: paddingAll,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "2024 © Velzon.",
+                style: descriptionStyle,
+              ),
+              Text(
+                "Design & Develop by Themesbrand",
+                style: descriptionStyle,
+              )
+            ],
           ),
         ),
       );

@@ -75,6 +75,8 @@ class BestSellingRow extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 16,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(
                       height: heightSpace,

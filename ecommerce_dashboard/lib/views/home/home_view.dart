@@ -41,43 +41,41 @@ class _HomeViewState extends State<HomeView> {
               child: Container(
                 color: AppColors.backgroundColor,
                 padding: paddingAll,
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //greeing text
-                      const GreetingAndFilterDate(),
-                  
-                      heightSized,
-                  
-                      //dashboard items
-                      DashboardItemDisplay(),
-                  
-                      heightSized,
-                  
-                      //revenue and sale progress
-                      const RevenueAndProgressDisplay(),
-                  
-                      heightSized,
-                  
-                      //best selling and top seller
-                      const BestSaleProductAndSaler(),
-                  
-                      heightSized,
-                  
-                      const DonutAndRecentOrder(),
-                  
-                      const SizedBox(
-                        height: 16,
-                      ),
-                    ],
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //greeing text
+                    const GreetingAndFilterDate(),
+                
+                    heightSized,
+                
+                    //dashboard items
+                    DashboardItemDisplay(),
+                
+                    heightSized,
+                
+                    //revenue and sale progress
+                    const RevenueAndProgressDisplay(),
+                
+                    heightSized,
+                
+                    //best selling and top seller
+                    const BestSaleProductAndSaler(),
+                
+                    heightSized,
+                
+                    const DonutAndRecentOrder(),
+                
+                    const SizedBox(
+                      height: 16,
+                    ),
+                  ],
                 ),
               ),
             ),
             const SliverToBoxAdapter(
               child: DashboardFooter(),
-            )
+            ),
           ],
         ),
       );

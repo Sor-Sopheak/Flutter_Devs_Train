@@ -74,6 +74,8 @@ class TopSellerRow extends StatelessWidget {
                     Text(
                       shopeName,
                       style: const TextStyle(fontSize: 16),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(
                       height: 8,
@@ -81,7 +83,11 @@ class TopSellerRow extends StatelessWidget {
                     Text(
                       sellerName,
                       style: const TextStyle(
-                          color: AppColors.greyColor, fontSize: 14),
+                        color: AppColors.greyColor,
+                        fontSize: 14,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     )
                   ],
                 ),
